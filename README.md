@@ -1,4 +1,5 @@
 netbus
 ======
 
-network bus desinge for cluster app, based on zeromq
+network bus desinge for cluster apps, based on zeromq.
+
