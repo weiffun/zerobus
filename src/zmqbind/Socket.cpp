@@ -9,7 +9,7 @@
 #include "Context.hpp"
 #include "Message.hpp"
 
-#include <string>
+#include <string.h>
 
 namespace netbus {
 	namespace zmqbind {

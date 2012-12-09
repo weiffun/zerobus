@@ -3,7 +3,7 @@ CPP = g++
 
 CFLAGS = -g -Wall -fPIC -I../src/zmqbind -I../src/framework
 LIBS =  -L../lib -Wl,-Bstatic -lzmqbind  -Wl,-Bdynamic -lzmq 
-LIBS2 = -L../lib -Wl,-Bstatic -lnetbus -L../lib -Wl,-Bstatic -lzmqbind -Wl,-Bdynamic -lzmq 
+LIBS2 = -L../lib -Wl,-Bstatic -lzerobus -L../lib -Wl,-Bstatic -lzmqbind -Wl,-Bdynamic -lzmq 
  
 C_FILE = $(wildcard ./*.c)
 CPP_FILE = $(wildcard ./*.cpp)

@@ -3,8 +3,8 @@ include ../Make.defines
 CFLAGS += -fPIC
 LIBS +=  -L../zmqbind  -lzmqbind 
 
-TAEGET = libnetbus.a
-TARGETSO = libnetbus.so
+TAEGET = libzerobus.a
+TARGETSO = libzerobus.so
 PROJECT = zmqbind_framework
 
 C_FILE = $(wildcard ./*.c)
