@@ -1,8 +1,7 @@
-
 Welcome
 -------
 
-zerobus is a library desinged for cluster apps communication.
+zerobus is a library designed for cluster apps communication.
 it is based on zeromq.
 
 Building and installation
