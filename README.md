@@ -8,7 +8,9 @@ Building and installation
 -------------------------
 
 Building:
+
 cd src
+
 make & make install
 
 Link:
