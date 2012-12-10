@@ -7,7 +7,14 @@ it is based on zeromq.
 Building and installation
 -------------------------
 
-See the INSTALL file included with the distribution.
+Building:
+cd src
+make & make install
+
+Link:
+-lzerobus -lzmqbind -ltinyxml
+
+see examples.
 
 Resources
 ---------
