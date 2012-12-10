@@ -29,12 +29,12 @@
 // Created: 2012/12/08
 // Version: 1.0
 
-#ifndef NETBUS_MESSAGE_H__
-#define NETBUS_MESSAGE_H__
+#ifndef zerobus_MESSAGE_H__
+#define zerobus_MESSAGE_H__
 
 #include "Common.hpp"
 
-namespace netbus {
+namespace zerobus {
 	namespace zmqbind {
 
 		//zeromq c++绑定，消息操作类
@@ -107,7 +107,7 @@ namespace netbus {
 		};
 
 	} //namespace zmqbind
-} //namespace netbus
+} //namespace zerobus
 
-#endif // NETBUS_MESSAGE_H__
+#endif // zerobus_MESSAGE_H__
 

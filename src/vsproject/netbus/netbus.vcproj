@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8.00"
-	Name="netbus"
+	Name="zerobus"
 	ProjectGUID="{F73A7A58-60A1-4AE6-A982-ECCCA750992F}"
 	>
 	<Platforms>
@@ -151,6 +151,18 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\framework\Commondefine.hpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\framework\ConfigParser.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\framework\ConfigParser.hpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\framework\Dealer2DealerPattern.cpp"
 				>
 			</File>
@@ -172,6 +184,14 @@
 			</File>
 			<File
 				RelativePath="..\..\framework\Reactor.hpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\framework\ZBus.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\framework\ZBus.hpp"
 				>
 			</File>
 		</Filter>
@@ -223,6 +243,10 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 			<File
+				RelativePath="..\..\..\examples\channel_temp.xml"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\examples\echoclient.cpp"
 				>
 			</File>
@@ -239,7 +263,47 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\examples\testchannelconfigclient.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\examples\testchannelconfigsrv.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\examples\testchannelserver.cpp"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="tinyxml"
+			>
+			<File
+				RelativePath="..\..\tinyxml\Makefile"
+				>
+			</File>
+			<File
+				RelativePath="..\..\tinyxml\tinystr.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\tinyxml\tinystr.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\tinyxml\tinyxml.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\tinyxml\tinyxml.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\tinyxml\tinyxmlerror.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\tinyxml\tinyxmlparser.cpp"
 				>
 			</File>
 		</Filter>

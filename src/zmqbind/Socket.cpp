@@ -11,7 +11,7 @@
 
 #include <string.h>
 
-namespace netbus {
+namespace zerobus {
 	namespace zmqbind {
 
 		Socket::Socket() : _praw_socket(NULL)
@@ -107,4 +107,4 @@ namespace netbus {
 		}
 
 	} //namespace zmqbind
-} //namespace netbus
+} //namespace zerobus

@@ -7,7 +7,7 @@
 
 #include "Context.hpp"
 
-namespace netbus {
+namespace zerobus {
 	namespace zmqbind {
 
 		Context::Context() : _pcontext(NULL), 
@@ -45,4 +45,4 @@ namespace netbus {
 		}
 
 	} //namespace zmqbind
-} //namespace netbus
+} //namespace zerobus

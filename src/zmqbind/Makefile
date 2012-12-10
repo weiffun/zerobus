@@ -24,7 +24,9 @@ $(TAEGET) : $(O_ALL_OBJS)
 	rm -f $@ $(TARGETSO)
 	ar rcs $@ $(O_ALL_OBJS) 
 	$(CPP) -shared -o $(TARGETSO)  $(LIBS)  $(O_ALL_OBJS) 
-	cp $@ ../../lib
+
+install:
+	cp $(TAEGET) ../../lib
 	cp $(TARGETSO) ../../lib
 	
 clean:

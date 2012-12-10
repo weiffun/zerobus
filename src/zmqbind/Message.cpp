@@ -7,7 +7,7 @@
 
 #include "Message.hpp"
 
-namespace netbus {
+namespace zerobus {
 	namespace zmqbind {
 		Message::Message() : _is_inited(false)
 		{
@@ -146,5 +146,5 @@ namespace netbus {
 		}
 
 	} //namespace zmqbind
-} //namespace netbus
+} //namespace zerobus
 

@@ -29,12 +29,12 @@
 // Created: 2012/12/08
 // Version: 1.0
 
-#ifndef NETBUS_SOCKET_H__
-#define NETBUS_SOCKET_H__
+#ifndef zerobus_SOCKET_H__
+#define zerobus_SOCKET_H__
 
 #include "Common.hpp"
 
-namespace netbus {
+namespace zerobus {
 	namespace zmqbind {
 		class Context;
 		class Message;
@@ -125,6 +125,6 @@ namespace netbus {
 		};	
 
 	} //namespace zmqbind
-} //namespace netbus
+} //namespace zerobus
 
-#endif // NETBUS_SOCKET_H__
+#endif // zerobus_SOCKET_H__

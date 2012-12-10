@@ -5,13 +5,13 @@
 #include <stdio.h>
 #include <string.h>
 
-using namespace netbus::zmqbind;
-using namespace netbus::framework;
+using namespace zerobus::zmqbind;
+using namespace zerobus::framework;
 
 void print_error()
 {
-	int err = netbus::framework::GetErrorCode();
-	const char* pstr = netbus::framework::GetErrorStr(err);
+	int err = zerobus::framework::GetErrorCode();
+	const char* pstr = zerobus::framework::GetErrorStr(err);
 	printf("error code: %d, error: %s\n", err, pstr);
 }
 
@@ -39,15 +39,15 @@ int main()
 		return -1;
 	}
 
-	IPeer* plocal_peer = channel.GetLocalPeer();
+	void* socket = channel.GetRawSocket();
 
-	if (!plocal_peer)
+	if (!socket)
 	{
 		printf("local peer nulll\n");
 		return -1;
 	}
 
-	zmq_pollitem_t items [] = { { plocal_peer->GetRawSocket(), 0, ZMQ_POLLIN, 0 } };
+	zmq_pollitem_t items [] = { { socket, 0, ZMQ_POLLIN, 0 } };
 
 	while (1) {
 		Poll(items, 1, 1000);
@@ -56,12 +56,12 @@ int main()
 
 			char data[12] = {0};
 			int len = 0;
-			ret = plocal_peer->Recv(data, len);
+			ret = channel.Recv(data, len);
 
 			if (len > 0)
 			{
 				printf("recive client  %s\n",  data);
-				plocal_peer->Send(data, len);
+				channel.Send(data, len);
 			}
 		}
 	}

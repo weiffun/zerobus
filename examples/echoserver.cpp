@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 
-using namespace netbus::zmqbind;
+using namespace zerobus::zmqbind;
 
 void print_error()
 {

@@ -12,7 +12,7 @@
 
 #include <string.h>
 
-namespace netbus {
+namespace zerobus {
 	namespace framework {
 		Channel::Channel() : _connnector_id(-1), _acceptor_id(-1), _buf_size(1000), _local_peer(NULL)
 		{
@@ -44,11 +44,6 @@ namespace netbus {
 			}
 		}
 
-		IPeer* Channel::GetLocalPeer()
-		{
-			return _local_peer;
-		}
-
 		int Channel::SetChannel(int connector, int acceptor, int buf_size,
 			const char* url)
 		{
@@ -69,6 +64,52 @@ namespace netbus {
 			}
 			
 			return -1;
+		}
+
+		int Channel::Send(const void* pmsg, int len)
+		{
+			return _local_peer->Send(pmsg, len);
+		}
+
+		int Channel::Recv(void* pmsg, int& len)
+		{
+			return _local_peer->Recv(pmsg, len);
+		}
+
+		int Channel::SendToChannel(Channel* channel, const void* pmsg, int len)
+		{
+			if (channel)
+			{
+				return _local_peer->SendToPeer(channel->_local_peer, pmsg, len);
+			}
+
+			return -1;
+		}
+
+		int Channel::KeepAlive()
+		{
+			return _local_peer->KeepAlive();
+		}
+
+		ChannelFactory& ChannelFactory::Instance()
+		{
+			static ChannelFactory factory;
+			return factory;
+		}
+
+		Channel* ChannelFactory::GetChannel(int type)
+		{
+			switch (type)
+			{
+			case CHANNEL_DEALER2DEALER:
+				{
+					return new Dealer2DealerChannel();
+				}
+			default:
+				{
+					return NULL;
+				}
+			}
 		}
 
 		Dealer2DealerChannel::Dealer2DealerChannel() : Channel()

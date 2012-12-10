@@ -5,8 +5,8 @@
 // Created: 2012/12/08
 // Version: 1.0
 
-#ifndef NETBUS_COMMON_H__
-#define NETBUS_COMMON_H__
+#ifndef zerobus_COMMON_H__
+#define zerobus_COMMON_H__
 
 #ifdef __cplusplus
 extern "C" {
@@ -19,7 +19,7 @@ extern "C" {
 }
 #endif
 
-namespace netbus {
+namespace zerobus {
 	namespace zmqbind {
 
 		inline const char *GetErrorStr(int errcode)
@@ -47,6 +47,6 @@ namespace netbus {
 		}
 
 	} //namespace zmqbind
-} //namespace netbus
+} //namespace zerobus
 
-#endif // NETBUS_COMMON_H__
+#endif // zerobus_COMMON_H__

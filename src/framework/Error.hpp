@@ -5,17 +5,21 @@
 // Created: 2012/12/07
 // Version: 1.0
 
-#ifndef NETBUS_ERROR_H__
-#define NETBUS_ERROR_H__
+#ifndef zerobus_ERROR_H__
+#define zerobus_ERROR_H__
 
 #include "../zmqbind/Common.hpp"
 
-namespace netbus {
+#include <string.h>
+
+namespace zerobus {
 	namespace framework {
 		enum ERROR_DEFINATION {
 			ERRO_MIN = 99999900,
 			ERRO_MALLOC_MEM_FAILED = 99999900,
 			ERRO_ID_NOT_BELONGTO_CHANNEL = 99999901,
+			ERRO_CONFIG_TINYXML = 99999902,
+			ERRO_INIT_CHANNEL_INSTER_MAP = 99999903,
 			ERRO_MAX = 99999999
 		};
 
@@ -27,14 +31,21 @@ namespace netbus {
 		//´íÎóÓ³Éä±í
 		static Error gErrorMap[100] = {
 			{ERRO_MALLOC_MEM_FAILED, "failed to malloc/new \n"},
-			{ERRO_ID_NOT_BELONGTO_CHANNEL, "id not belong to channel\n"}
+			{ERRO_ID_NOT_BELONGTO_CHANNEL, "id not belong to channel\n"},
+			{ERRO_CONFIG_TINYXML, "tinyxml failed \n"},
+			{ERRO_INIT_CHANNEL_INSTER_MAP, "init channel failed, same channel had init\n"},
 		};
 
 		//´íÎóÂë
 		static int gErrorCode = 0;
+		static const int TINYXMLERRSTRSIZE = 1024;
+		static char gTinyXMLErrorStr[TINYXMLERRSTRSIZE] = {0};
 
 		inline const char *GetErrorStr(int errcode)
 		{
+			if (errcode == ERRO_CONFIG_TINYXML)
+				return gTinyXMLErrorStr;
+
 			if (errcode >= ERRO_MIN && errcode < ERRO_MAX)
 				return gErrorMap[errcode - ERRO_MIN].str;
 			
@@ -48,6 +59,19 @@ namespace netbus {
 
 			return zmqbind::GetErrorCode();
 		}
+
+		inline int SetTinyXMLError(const char *szError)
+		{
+			int ret = -1;
+
+			if (szError)
+			{
+				strncpy(gTinyXMLErrorStr, szError, sizeof(gTinyXMLErrorStr));
+				gTinyXMLErrorStr[TINYXMLERRSTRSIZE - 1] = '\0';
+			}
+
+			return ret;
+		}
 	}
 }
-#endif // NETBUS_ERROR_H__
+#endif // zerobus_ERROR_H__

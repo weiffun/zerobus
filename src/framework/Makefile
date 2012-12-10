@@ -1,7 +1,6 @@
 include ../Make.defines
 
-CFLAGS += -fPIC
-LIBS +=  -L../zmqbind  -lzmqbind 
+LIBS +=  -L../zmqbind  -lzmqbind  -L../tinyxml -ltinyxml
 
 TAEGET = libzerobus.a
 TARGETSO = libzerobus.so
@@ -25,8 +24,13 @@ $(TAEGET) : $(O_ALL_OBJS)
 	rm -f $@ $(TARGETSO)
 	ar rcs $@ $(O_ALL_OBJS) 
 	$(CPP) -shared -o $(TARGETSO)  $(LIBS)  $(O_ALL_OBJS) 
-	cp $@ ../../lib
+	
+install:
+	cp $(TAEGET) ../../lib
 	cp $(TARGETSO) ../../lib
+	cp ZBus.hpp ../../include
+	cp Channel.hpp ../../include
+	cp Reactor.hpp ../../include
 	
 clean:
 	rm -f *.o 

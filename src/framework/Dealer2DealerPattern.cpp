@@ -9,7 +9,7 @@
 
 #include <string.h>
 
-namespace netbus {
+namespace zerobus {
 	namespace framework {
 
 		void FreeCallback(void *data, void *hint)

@@ -29,12 +29,12 @@
 // Created: 2012/12/08
 // Version: 1.0
 
-#ifndef NETBUS_CONTEXT_H__
-#define NETBUS_CONTEXT_H__
+#ifndef zerobus_CONTEXT_H__
+#define zerobus_CONTEXT_H__
 
 #include "Common.hpp"
 
-namespace netbus {
+namespace zerobus {
 	namespace zmqbind {
 		//zeromq c++绑定，上下文类，去掉异常处理
 		//添加linger和阈值处理,处理信号和Ctrl + C。
@@ -71,6 +71,6 @@ namespace netbus {
 		};
 
 	} //namespace zmqbind
-} //namespace netbus
+} //namespace zerobus
 
-#endif // NETBUS_CONTEXT_H__
+#endif // zerobus_CONTEXT_H__

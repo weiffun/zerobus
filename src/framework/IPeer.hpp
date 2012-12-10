@@ -5,14 +5,12 @@
 // Created: 2012/11/24
 // Version: 1.0
 
-#ifndef NETBUS_IPEER_H__
-#define NETBUS_IPEER_H__
+#ifndef zerobus_IPEER_H__
+#define zerobus_IPEER_H__
 
-#define NOTCOPYBLE(TYPE) \
-		TYPE(const TYPE&);\
-		void operator=(const TYPE&);\
+#include "Commondefine.hpp"
 
-namespace netbus {
+namespace zerobus {
 	namespace framework {
 
 		enum PRSERVED_MSG {
@@ -23,6 +21,7 @@ namespace netbus {
 
 		void FreeCallback(void *, void *);
 	
+		class zerobus::zmqbind::Context;
 
 		//网络端抽象接口
 		class IPeer {
@@ -30,7 +29,7 @@ namespace netbus {
 			IPeer() {};
 			virtual ~IPeer() {};
 
-			virtual int Init(zmqbind::Context& ctx) = 0;
+			virtual int Init(zerobus::zmqbind::Context& ctx) = 0;
 
 			//发送数据
 			virtual int Send(const void* pmsg, int len) = 0;
@@ -76,4 +75,4 @@ namespace netbus {
 	}
 }
 
-#endif // NETBUS_IPEER_H__
+#endif // zerobus_IPEER_H__

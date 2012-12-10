@@ -1,4 +1,5 @@
 #include "Channel.hpp"
+#include "ZBus.hpp"
 #include "Error.hpp"
 
 #include <stdio.h>
@@ -16,8 +17,8 @@ void print_error()
 
 int main()
 {
-	Context ctx;
-	int ret = ctx.Init(0, 10);
+	//load config
+	int ret = ZBus::Instance().LoadConfig("channel_temp.xml");
 
 	if (ret != 0)
 	{
@@ -26,18 +27,26 @@ int main()
 		return -1;
 	}
 
-	Dealer2DealerChannel channel;
-
-	channel.SetChannel(2001, 10001, 1000, "tcp://localhost:5561");
-	ret = channel.InitChannel(ctx, 2001, 10000);
+	//init channels
+	ret = ZBus::Instance().InitChannels(20001);
 
 	if (ret != 0)
 	{
-		printf("connect failed\n");
+		printf("init channel failed\n");
+		print_error();
 		return -1;
 	}
 
-	void* socket = channel.GetRawSocket();
+	Channel* pchannel = ZBus::Instance().GetChannel(20001, 10001);
+
+	if (!pchannel)
+	{
+		printf("get channel failed\n");
+		print_error();
+		return -1;
+	}
+
+	void* socket = pchannel->GetRawSocket();
 
 	if (!socket)
 	{
@@ -52,13 +61,13 @@ int main()
 		Poll(items, 1, 1000);
 
 		char str[12] = "hello world";
-		channel.Send(str, sizeof(str));
+		pchannel->Send(str, sizeof(str));
 
 		if (items [0].revents & ZMQ_POLLIN) {
 		
 			char data[12] = {0};
 			int len = 0;
-			int iRet = channel.Recv((void *)data, len);
+			int iRet = pchannel->Recv((void *)data, len);
 
 			if (len > 0)
 			{

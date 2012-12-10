@@ -5,13 +5,13 @@
 // Created: 2012/11/24
 // Version: 1.0
 
-#ifndef NETBUS_DEALER2DEALERPATTERN_H__
-#define NETBUS_DEALER2DEALERPATTERN_H__
+#ifndef zerobus_DEALER2DEALERPATTERN_H__
+#define zerobus_DEALER2DEALERPATTERN_H__
 
 #include "../zmqbind/zmqbind.hpp"
 #include "IPeer.hpp"
 
-namespace netbus {
+namespace zerobus {
 	namespace framework {
 
 		//主动端，主动发起连接类
@@ -82,4 +82,4 @@ namespace netbus {
 	}
 }
 
-#endif // NETBUS_DEALER2DEALERPATTERN_H__
+#endif // zerobus_DEALER2DEALERPATTERN_H__

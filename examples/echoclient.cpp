@@ -3,12 +3,12 @@
 #include <stdio.h>
 #include <string.h>
 
-using namespace netbus::zmqbind;
+using namespace zerobus::zmqbind;
 
 void print_error()
 {
 	int err = GetErrorCode();
-	const char* pstr = netbus::zmqbind::GetErrorStr(err);
+	const char* pstr = zerobus::zmqbind::GetErrorStr(err);
 	printf("error code: %d, error: %s\n", err, pstr);
 }
 

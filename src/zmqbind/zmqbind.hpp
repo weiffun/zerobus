@@ -5,13 +5,13 @@
 // Created: 2012/12/08
 // Version: 1.0
 
-#ifndef NETBUS_ZMQBIND_H__
-#define NETBUS_ZMQBIND_H__
+#ifndef zerobus_ZMQBIND_H__
+#define zerobus_ZMQBIND_H__
 
 #include "Common.hpp"
 #include "Context.hpp"
 #include "Message.hpp"
 #include "Socket.hpp"
 
-#endif // NETBUS_ZMQBIND_H__
+#endif // zerobus_ZMQBIND_H__
 
