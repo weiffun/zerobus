@@ -14,7 +14,7 @@ cd src
 make & make install
 
 Link:
--lzerobus -lzmqbind -ltinyxml
+-lzerobus -lzmqbind -ltinyxml -lzmq
 
 see examples.
 
