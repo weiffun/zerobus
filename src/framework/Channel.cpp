@@ -6,9 +6,11 @@
 // Version: 1.0
 
 #include "Channel.hpp"
-#include "Dealer2DealerPattern.hpp"
-#include "../zmqbind/zmqbind.hpp"
+#include "IPeer.hpp"
+#include "Dealer2DealerChannel.hpp"
 #include "Error.hpp"
+
+#include "zmqbind/zmqbind.hpp"
 
 #include <string.h>
 
@@ -37,11 +39,17 @@ namespace zerobus {
 
 		Channel::~Channel()
 		{
+
+		}
+
+		int Channel::ReInitChannel(zerobus::zmqbind::Context& ctx, int id, int time_out)
+		{
 			if (_local_peer)
 			{
 				delete _local_peer;
-				_local_peer = NULL;
 			}
+
+			return this->InitChannel(ctx, id, time_out);
 		}
 
 		int Channel::SetChannel(int connector, int acceptor, int buf_size,
@@ -50,7 +58,6 @@ namespace zerobus {
 			_connnector_id = connector;
 			_acceptor_id = acceptor;
 			_buf_size = buf_size;
-			_local_peer = NULL;
 
 			if (url)
 			{
@@ -86,9 +93,61 @@ namespace zerobus {
 			return -1;
 		}
 
+		void* Channel::GetRawSocket()
+		{
+			if (_local_peer)
+				return _local_peer->GetRawSocket();
+			
+			return NULL;
+		}
+
 		int Channel::KeepAlive()
 		{
+			if (!_local_peer)
+				return -1;
+
 			return _local_peer->KeepAlive();
+		}
+
+		bool Channel::IsInitized()
+		{
+			if (_local_peer)
+			{
+				return true;
+			}
+
+			return false;
+		}
+
+		int Channel::InitLocalPeer(zerobus::zmqbind::Context& ctx)
+		{
+			if (_local_peer)
+			{
+				int ret = _local_peer->Init(ctx);
+
+				if (ret != 0)
+				{
+					return ret;
+				}
+
+				if (_buf_size >= 0)
+				{
+					//send water mark
+					ret = _local_peer->SetPeerOpt(ZMQ_SNDHWM, &_buf_size, sizeof (int));
+
+					if (ret < 0)
+					{
+						return ret;
+					}
+
+					//recv water mark
+					ret = _local_peer->SetPeerOpt(ZMQ_RCVHWM, &_buf_size, sizeof (int));
+				}
+				
+				return ret;
+			}
+
+			return -1;
 		}
 
 		ChannelFactory& ChannelFactory::Instance()
@@ -111,89 +170,5 @@ namespace zerobus {
 				}
 			}
 		}
-
-		Dealer2DealerChannel::Dealer2DealerChannel() : Channel()
-		{
-
-		}
-
-		Dealer2DealerChannel::Dealer2DealerChannel(int connector, int acceptor, int buf_size, 
-			const char* url) : Channel(connector, acceptor, buf_size, url)
-		{
-
-		}
-
-		Dealer2DealerChannel::~Dealer2DealerChannel()
-		{
-			if (_local_peer)
-			{
-				delete _local_peer;
-				_local_peer = NULL;
-			}
-		}
-
-		int Dealer2DealerChannel::InitChannel(zmqbind::Context& ctx, int id, int time_out)
-		{
-			gErrorCode = 0;
-
-			if (id == _connnector_id)
-			{
-				//创建主动peer
-				DealerActivePeer* peer = new DealerActivePeer();
-				if (!peer)
-				{
-					gErrorCode = ERRO_MALLOC_MEM_FAILED;
-					return -2;
-				}
-
-				int ret = peer->Init(ctx);
-
-				if (ret != 0)
-				{
-					return ret;
-				}
-
-				ret = peer->Connect(_url, time_out, NULL);
-
-				if (ret != 0)
-				{
-					return ret;
-				}
-
-				_local_peer = peer;
-				return 0;
-			}
-			else if (id == _acceptor_id)
-			{
-				//创建被动peer
-				DealerPassivePeer* peer = new DealerPassivePeer();
-				if (!peer)
-				{
-					gErrorCode = ERRO_MALLOC_MEM_FAILED;
-					return -2;
-				}
-
-				int ret = peer->Init(ctx);
-
-				if (ret != 0)
-				{
-					return ret;
-				}
-
-				ret = peer->Bind(_url);
-
-				if (ret != 0)
-				{
-					return ret;
-				}
-
-				_local_peer = peer;
-				return 0;
-			}
-
-			gErrorCode = ERRO_ID_NOT_BELONGTO_CHANNEL;
-			return -1;
-		}
-
 	}
 }

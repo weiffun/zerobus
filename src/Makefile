@@ -9,9 +9,12 @@ all:
 	done
 	
 install:
-	@if [ !-d $(OUTPUT_LIB) ]; then mkdir -p $(OUTPUT_LIB); fi;
+	-if [ ! -d $(OUTPUT_LIB) ]; then mkdir -p $(OUTPUT_LIB); fi;
 	
-	@if [ !-d $(OUTPUT_INCLUDE) ]; then mkdir -p $(OUTPUT_INCLUDE); fi;
+	-if [ ! -d $(OUTPUT_INCLUDE) ]; then mkdir -p $(OUTPUT_INCLUDE); \
+		mkdir -p $(OUTPUT_INCLUDE)/zmqbind;\
+		mkdir -p $(OUTPUT_INCLUDE)/tinyxml;\
+	fi;
 	
 	for i in $(DIRS); do \
 		(cd $$i && $(MAKE) install) || exit 1; \

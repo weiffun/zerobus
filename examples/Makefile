@@ -1,10 +1,11 @@
 CC = gcc
 CPP = g++
 
-CFLAGS = -g -Wall -fPIC -I../src/zmqbind -I../src/framework
-LIBS =  -L../lib -Wl,-Bstatic -lzmqbind  -Wl,-Bdynamic -lzmq 
-LIBS2 = -L../lib -Wl,-Bstatic -lzerobus -L../lib -Wl,-Bstatic -lzmqbind  -Wl,-Bdynamic -lzmq 
-LIBS3 =  -L../lib -Wl,-Bstatic -lzerobus  -L../lib -Wl,-Bstatic -lzmqbind -L../lib -Wl,-Bstatic -ltinyxml -Wl,-Bdynamic -lzmq 
+#CFLAGS = -g -Wall -fPIC -I../src/zmqbind -I../src/framework
+CFLAGS = -g -Wall -fPIC -I../include 
+#LIBS =  -L../lib -Wl,-Bstatic -lzmqbind  -Wl,-Bdynamic -lzmq 
+#LIBS2 = -L../lib -Wl,-Bstatic -lzerobus -L../lib -Wl,-Bstatic -lzmqbind  -Wl,-Bdynamic -lzmq 
+LIBS =  -L../lib -Wl,-Bstatic -lzerobus  -L../lib -Wl,-Bstatic -lzmqbind -L../lib -Wl,-Bstatic -ltinyxml -Wl,-Bdynamic -lzmq 
  
 C_FILE = $(wildcard ./*.c)
 CPP_FILE = $(wildcard ./*.cpp)
@@ -18,24 +19,13 @@ O_ALL_OBJS = $(O_CXX_FILE) $(O_CC_FILE)
 %.o : %.c
 	$(CPP) -o $@ $(CFLAGS)  -c  $<
 	
-all : echoclient echoserver testchannelclient testchannelserver testchannelconfigclient  testchannelconfigsrv
-
-echoclient : echoclient.o
-	$(CPP) -o $@ $< $(LIBS)
-echoserver : echoserver.o
-	$(CPP) -o $@ $< $(LIBS)
-	
-testchannelclient : testchannelclient.o
-	$(CPP) -o $@ $< $(LIBS2)
-
-testchannelserver : testchannelserver.o
-	$(CPP) -o $@ $< $(LIBS2)
+all : testchannelconfigclient  testchannelconfigsrv
 	
 testchannelconfigclient : testchannelconfigclient.o
-	$(CPP) -o $@ $< $(LIBS3)
+	$(CPP) -o $@ $< $(LIBS)
 
 testchannelconfigsrv : testchannelconfigsrv.o
-	$(CPP) -o $@ $< $(LIBS3)
+	$(CPP) -o $@ $< $(LIBS)
 	
 clean:
 	rm -f *.o 

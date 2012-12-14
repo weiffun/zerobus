@@ -6,6 +6,7 @@
 // Version: 1.0
 
 #include "Context.hpp"
+#include "Socket.hpp"
 
 namespace zerobus {
 	namespace zmqbind {
@@ -20,6 +21,16 @@ namespace zerobus {
 		{
 			if (_pcontext)
 			{
+				std::map<Socket*, bool>::iterator it = _socket_map.begin();
+				for(; it != _socket_map.end(); ++it)
+				{
+					if (it->second)
+					{
+						delete it->first;
+						it->second = false;
+					}
+				}
+
 				zmq_ctx_destroy(_pcontext);
 				_pcontext = NULL;
 			}
@@ -42,6 +53,35 @@ namespace zerobus {
 #else
 			return -2;
 #endif
+		}
+	
+		Socket* Context::CreateSocket(ESOCKET_TYPE type)
+		{
+			Socket* psocket = new Socket();
+
+			if (!psocket)
+			{
+				return NULL;
+			}
+
+			int ret = psocket->Init(*this, type);
+
+			if (ret != 0)
+			{
+				return NULL;
+			}
+
+			_socket_map[psocket] = true;
+			return psocket;
+		}
+
+		void Context::DestroySocket(Socket* socket)
+		{
+			if (socket && _socket_map[socket])
+			{
+				_socket_map.erase(socket);
+				delete socket;
+			}
 		}
 
 	} //namespace zmqbind

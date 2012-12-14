@@ -24,7 +24,7 @@ int main()
 	{
 		printf("ret %d\n", ret);
 		print_error();
-		return -1;
+		 exit(1);
 	}
 
 	//init channels
@@ -34,7 +34,7 @@ int main()
 	{
 		printf("init channel failed\n");
 		print_error();
-		return -1;
+		exit(1);
 	}
 
 	Channel* pchannel = ZBus::Instance().GetChannel(20001, 10001);
@@ -43,7 +43,7 @@ int main()
 	{
 		printf("get channel failed\n");
 		print_error();
-		return -1;
+		 exit(1);
 	}
 
 	void* socket = pchannel->GetRawSocket();

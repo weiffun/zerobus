@@ -104,6 +104,7 @@ $(TAEGET) : $(OBJS)
 install:
 	cp $(TAEGET) ../../lib
 	cp $(TARGETSO) ../../lib
+	cp *.h ../../include/tinyxml
 
 #****************************************************************************
 # common rules

@@ -17,8 +17,11 @@ namespace zerobus {
 	namespace framework {
 		const int MAX_URL_SIZE = 80;
 
+		/**
+		* Channel type.
+		*/
 		enum ChannelType {
-			CHANNEL_DEALER2DEALER = 0,
+			CHANNEL_DEALER2DEALER = 0, /**!< dealer to dealer channel */
 		};
 
 		struct ChannelID

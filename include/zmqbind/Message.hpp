@@ -29,56 +29,85 @@
 // Created: 2012/12/08
 // Version: 1.0
 
-#ifndef zerobus_CONTEXT_H__
-#define zerobus_CONTEXT_H__
+#ifndef zerobus_MESSAGE_H__
+#define zerobus_MESSAGE_H__
 
 #include "Common.hpp"
-#include "Socket.hpp"
-
-#include <map>
 
 namespace zerobus {
 	namespace zmqbind {
-		//zeromq c++绑定，上下文类，去掉异常处理
-		//添加linger和阈值处理,处理信号和Ctrl + C。
-		class Context
+
+		//zeromq c++绑定，消息操作类
+		class Message
 		{
 			friend class Socket;
 
 		public:
-			Context();
-			~Context();
+			Message();
+			~Message();
 
 		public:
-			int Init(uint32_t linger, uint32_t high_water_mark);
+			int Init();
 
-			inline uint32_t GetLinger() const { return _linger; }
+			int Init(int size);
 
-			inline void SetLinger(uint32_t linger) { _linger = linger; }
+			int Init(void *data, size_t size, zmq_free_fn *ffn, void *hint);
 
-			inline uint32_t GetHighWaterMark() const { return _high_water_mark; }
+			int ReBuild();
 
-			inline void SetHighWaterMark(uint32_t high_water_mark) 
-			{ 
-				_high_water_mark = high_water_mark;
+			int ReBuild(size_t size);
+
+			int ReBuild(void *data, size_t size, zmq_free_fn *ffn, void *hint);
+
+			int Move (Message *msg);
+
+			int Copy (Message *msg);
+
+			inline void *Data ()
+			{
+				if (!_is_inited) return NULL;
+
+				return zmq_msg_data (&_msg);
 			}
 
-			Socket* CreateSocket(ESOCKET_TYPE type);
+			inline const void* Data () const
+			{
+				if (!_is_inited) return NULL;
 
-			void DestroySocket(Socket* socket);
+				return zmq_msg_data (const_cast<zmq_msg_t*>(&_msg));
+			}
+
+			inline size_t Size () const
+			{
+				if (!_is_inited) return 0;
+
+				return zmq_msg_size (const_cast<zmq_msg_t*>(&_msg));
+			}
+
+			inline int Close()
+			{
+				if (!_is_inited) return 0;
+
+				int iRet = zmq_msg_close(&_msg);
+
+				if (iRet == 0) _is_inited = false;
+
+				return iRet;
+			}
+
+			inline bool IsInit() { return _is_inited; }
 
 		private:
-			void*		_pcontext; //zeromq context
-			uint32_t    _linger;     //Linger timeout, socket关闭时，等待时间
-			uint32_t	_high_water_mark; //消息队列最大阈值
-			std::map<Socket*, bool> _socket_map;
+			zmq_msg_t	_msg;
+			bool		_is_inited;
 
 		private:
-			Context(const Context&);
-			Context& operator=(const Context&);
+			Message(const Message&);
+			void operator=(const Message&);
 		};
 
 	} //namespace zmqbind
 } //namespace zerobus
 
-#endif // zerobus_CONTEXT_H__
+#endif // zerobus_MESSAGE_H__
+

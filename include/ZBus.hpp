@@ -8,9 +8,10 @@
 #ifndef zerobus_ZBUS_H__
 #define zerobus_ZBUS_H__
 
-#include "Commondefine.hpp"
+#include "CommonDefine.hpp"
 #include "ConfigParser.hpp"
-#include "../zmqbind/Context.hpp"
+
+#include "zmqbind/Context.hpp"
 
 #include <map>
 
@@ -20,24 +21,48 @@ namespace zerobus
 	{
 		class Channel;
 
-		//zbus
+		/**
+		* Channel manager.
+		*/
 		class ZBus
 		{
 		public:
+			/**
+			* A destructor.
+			*/
 			~ZBus();
 
+			/**
+			* Instance a zbus.
+			*/
 			static ZBus& Instance();
 
+			/**
+			* Load channels defination xml.
+			* @param xml file name.
+			* @return success return 0, else return -1.
+			*/
 			int LoadConfig(const char* szChannelDefXML);
 
+			/**
+			* Initialize all channels connected/bind the peer id.
+			* @param peer id.
+			* @return success return 0, else return -1.
+			*/
 			int InitChannels(int peer_id);
 
+			/**
+			* Get a channel.
+			* @param connector peer id.
+			* @param acceptor peer id.
+			* @return success return the channel, else return NULL.
+			*/
 			Channel* GetChannel(int connector_id, int acceptor_id);
 
 		private:
-			std::map<ChannelID, Channel*> _channel_map;
-			ConfigParser _config_parser;
-			zerobus::zmqbind::Context _ctx;
+			std::map<ChannelID, Channel*> _channel_map; //channel map
+			ConfigParser _config_parser;               // parser config
+			zerobus::zmqbind::Context _ctx;            //context
 
 		private:
 			ZBus();

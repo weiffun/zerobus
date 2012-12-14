@@ -28,7 +28,7 @@ $(TAEGET) : $(O_ALL_OBJS)
 install:
 	cp $(TAEGET) ../../lib
 	cp $(TARGETSO) ../../lib
-	
+	cp *.hpp ../../include/zmqbind
 clean:
 	rm -f *.o 
 	rm -f $(TAEGET) $(TARGETSO)

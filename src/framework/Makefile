@@ -1,6 +1,8 @@
 include ../Make.defines
 
-LIBS +=  -L../zmqbind  -lzmqbind  -L../tinyxml -ltinyxml
+LIBS +=  -L../zmqbind -lzmqbind   -L../tinyxml -ltinyxml
+
+INC = -I.. -I.
 
 TAEGET = libzerobus.a
 TARGETSO = libzerobus.so
@@ -13,10 +15,10 @@ O_CXX_FILE = $(patsubst ./%.cpp, %.o, $(CPP_FILE))
 O_ALL_OBJS = $(O_CXX_FILE) $(O_CC_FILE)
 
 %.o : %.cpp
-	$(CPP) -o $@ $(CFLAGS)  -c  $<
+	$(CPP) -o $@ $(CFLAGS) $(INC) -c  $<
 
 %.o : %.c
-	$(CPP) -o $@ $(CFLAGS)  -c  $<
+	$(CPP) -o $@ $(CFLAGS) $(INC)  -c  $<
 
 all : $(TAEGET)
 
@@ -31,6 +33,9 @@ install:
 	cp ZBus.hpp ../../include
 	cp Channel.hpp ../../include
 	cp Reactor.hpp ../../include
+	cp CommonDefine.hpp ../../include
+	cp Error.hpp ../../include
+	cp ConfigParser.hpp ../../include
 	
 clean:
 	rm -f *.o 

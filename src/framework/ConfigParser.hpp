@@ -8,9 +8,9 @@
 #ifndef zerobus_CONFIGPARSER_H__
 #define zerobus_CONFIGPARSER_H__
 
-#include "Commondefine.hpp"
+#include "CommonDefine.hpp"
 
-#include "../tinyxml/tinyxml.h"
+#include "tinyxml/tinyxml.h"
 
 #include <vector>
 

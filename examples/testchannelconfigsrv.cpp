@@ -52,6 +52,7 @@ int main()
 	if (!socket)
 	{
 		printf("local peer nulll\n");
+		print_error();
 		return -1;
 	}
 

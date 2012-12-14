@@ -98,6 +98,16 @@ namespace zerobus {
 				return it->second;
 			}
 
+			id._accpetor_id = connector_id;
+			id._connector_id = acceptor_id;
+
+			it = _channel_map.find(id);
+
+			if (it != _channel_map.end())
+			{
+				return it->second;
+			}
+
 			return NULL;
 		}
 	}
