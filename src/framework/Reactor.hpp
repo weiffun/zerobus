@@ -22,7 +22,7 @@ namespace zerobus
 		{
 		public:
 			//handle receive message
-			virtual int OnReceiveMessage(const Channel* channel) = 0;
+			virtual int OnReceiveMessage(Channel* channel) = 0;
 		};
 
 		//event-driven reactor
