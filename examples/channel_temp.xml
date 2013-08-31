@@ -6,8 +6,9 @@
 	-->
 
 	<!--服务器id实例id：例如10001表示服务器1实例1 -->
+  <channel type="0" connector_id="20001" acceptor_id="10001" url="tcp://127.0.0.1:5561" bufsize="1000" />
 
-	<channel type="0"  connector_id="20001" acceptor_id="10001" url="tcp://127.0.0.1:5561" bufsize="1000" />
+	<channel type="0"  connector_id="20002" acceptor_id="10002" url="ipc:///tmp/20001_10001" bufsize="1000" />
    
 
 </root>

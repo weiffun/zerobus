@@ -19,12 +19,18 @@ O_ALL_OBJS = $(O_CXX_FILE) $(O_CC_FILE)
 %.o : %.c
 	$(CPP) -o $@ $(CFLAGS)  -c  $<
 	
-all : testchannelconfigclient  testchannelconfigsrv
+all : testchannelconfigclient  testchannelconfigsrv test_ract_client test_ract_srv
 	
 testchannelconfigclient : testchannelconfigclient.o
 	$(CPP) -o $@ $< $(LIBS)
 
 testchannelconfigsrv : testchannelconfigsrv.o
+	$(CPP) -o $@ $< $(LIBS)
+	
+test_ract_client : test_reactor_client.o
+	$(CPP) -o $@ $< $(LIBS)
+
+test_ract_srv : test_reactor_server.o
 	$(CPP) -o $@ $< $(LIBS)
 	
 clean:
