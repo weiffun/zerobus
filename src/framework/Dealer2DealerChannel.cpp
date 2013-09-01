@@ -129,13 +129,15 @@ namespace zerobus {
 
 			zmqbind::Message message;
 
-			int ret = message.Init(const_cast<void *>(pmsg), len, FreeCallback, NULL);
-
+			//int ret = message.Init(const_cast<void *>(pmsg), len, NULL, NULL);
+			int ret = message.Init(len);
+			
 			if (ret != 0)
 			{
 				return ret;
 			}
 
+			memcpy(message.Data(), pmsg, len);
 			return _socket->Send(&message, ZMQ_DONTWAIT);
 		}
 
